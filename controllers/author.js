@@ -38,4 +38,16 @@ router.post("/", function (req, res) {
   });
 });
 
+// show
+router.get("/:id", function (req, res) {
+  db.Author.findById(req.params.id, function (err, foundAuthor) {
+    if (err) {
+      console.log(err);
+      return res.send(err);
+    }
+    const context = { author: foundAuthor };
+    res.render("author/show", context);
+  });
+});
+
 module.exports = router;
