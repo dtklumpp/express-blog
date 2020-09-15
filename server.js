@@ -3,6 +3,7 @@ const express = require("express");
 
 /* Internal Modules */
 const db = require("./models");
+const controllers = require("./controllers");
 
 /* Instanced Modules */
 const app = express();
@@ -22,19 +23,7 @@ app.get("/", function (req, res) {
 
 // Author Routes
 
-// index view
-app.get("/authors", function (req, res) {
-  // mongoose code
-  db.Author.find({}, function (error, foundAuthors) {
-    if (error) return res.send(error);
-
-    const context = {
-      authors: foundAuthors,
-    };
-
-    res.render("author/index", context);
-  });
-});
+app.use("/authors", controllers.author);
 
 // Article Routes
 
