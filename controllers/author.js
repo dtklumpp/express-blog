@@ -50,4 +50,31 @@ router.get("/:id", function (req, res) {
   });
 });
 
+// edit <- view
+router.get("/:id/edit", function (req, res) {
+  db.Author.findById(req.params.id, function (err, foundAuthor) {
+    if (err) {
+      console.log(err);
+      return res.send(err);
+    }
+    const context = { author: foundAuthor };
+    res.render("author/edit", context);
+  });
+});
+
+// update <- db change
+router.put("/:id", function (req, res) {
+  db.Author.findByIdAndUpdate(req.params.id, req.body, { new: true }, function (
+    err,
+    updatedAuthor
+  ) {
+    if (err) {
+      console.log(err);
+      return res.send(err);
+    }
+
+    res.redirect(`/authors/${updatedAuthor._id}`);
+  });
+});
+
 module.exports = router;
