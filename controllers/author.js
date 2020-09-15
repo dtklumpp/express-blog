@@ -77,4 +77,15 @@ router.put("/:id", function (req, res) {
   });
 });
 
+// delete
+router.delete("/:id", function (req, res) {
+  db.Author.findByIdAndDelete(req.params.id, function (err, deletedAuthor) {
+    if (err) {
+      console.log(err);
+      return res.send(err);
+    }
+    res.redirect("/authors");
+  });
+});
+
 module.exports = router;
