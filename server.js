@@ -9,7 +9,13 @@ const app = express();
 /* Configuration */
 const PORT = 4000;
 
+app.set("view engine", "ejs");
+
 /* Routes */
+app.get("/", function (req, res) {
+  // render("file", context)
+  res.render("index");
+});
 
 /* Server Listener */
 app.listen(PORT, function () {
