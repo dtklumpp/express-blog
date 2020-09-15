@@ -21,13 +21,21 @@ router.get("/", function (req, res) {
 });
 
 // new
+router.get("/new", function (req, res) {
+  res.render("author/new");
+});
 
 // create
+router.post("/", function (req, res) {
+  //mongoose
+  db.Author.create(req.body, function (err, createdAuthor) {
+    if (err) {
+      console.log(err);
+      return res.send(err);
+    }
 
-// update form
-
-// put update
-
-// delete
+    res.redirect("/authors");
+  });
+});
 
 module.exports = router;
