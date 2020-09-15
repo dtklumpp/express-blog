@@ -20,4 +20,6 @@ mongoose.connection.on("disconnect", function (event) {
   console.log("mongodb disconnected", event);
 });
 
-module.exports = {};
+module.exports = {
+  Author: require("./Author"),
+};
