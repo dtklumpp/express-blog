@@ -1,5 +1,6 @@
 /* External Modules */
 const express = require("express");
+const methodOverride = require("method-override");
 
 /* Internal Modules */
 const db = require("./models");
@@ -12,6 +13,10 @@ const app = express();
 const PORT = 4000;
 
 app.set("view engine", "ejs");
+
+/* middleware */
+app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 
 /* Routes */
 
