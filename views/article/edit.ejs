@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Article</title>
+  </head>
+  <body>
+    <nav>
+      <h1>Welcome to Blog App</h1>
+      <ul>
+        <li>
+          <a href="/authors">Authors</a>
+        </li>
+        <li>
+          <a href="/articles">Articles</a>
+        </li>
+        <li>
+          <a href="/articles/new">Add an Article</a>
+        </li>
+      </ul>
+    </nav>
+    <main>
+      <h2>Edit <%= article.title %></h2>
+      <form action="/articles/<%= article._id %>?_method=PUT" method="POST">
+        <p>
+          <input
+            type="text"
+            name="title"
+            placeholder="Title"
+            value="<%= article.title %>"
+          />
+        </p>
+        <p>
+          <textarea type="text" name="body" placeholder="Body">
+<%= article.body %></textarea
+          >
+        </p>
+        <input type="submit" value="Update Article" />
+      </form>
+    </main>
+  </body>
+</html>

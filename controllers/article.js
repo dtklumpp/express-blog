@@ -48,12 +48,30 @@ router.get("/:id", function (req, res) {
 
 // edit
 router.get("/:id/edit", function (req, res) {
-  return res.send("article edit");
+  db.Article.findById(req.params.id, function (err, foundArticle) {
+    if (err) {
+      console.log(err);
+      return res.send(err);
+    }
+    const context = { article: foundArticle };
+    res.render("article/edit", context);
+  });
 });
 
 // update
 router.put("/:id", function (req, res) {
-  return res.send("article update");
+  db.Article.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    { new: true },
+    function (err, updatedArticle) {
+      if (err) {
+        console.log(err);
+        return res.send(err);
+      }
+      res.redirect(`/articles/${updatedArticle._id}`);
+    }
+  );
 });
 
 // delete
