@@ -94,7 +94,6 @@ router.put("/:id", function (req, res) {
 });
 
 // delete
-// TODO refactor to delete article and remove article from author
 router.delete("/:id", function (req, res) {
   db.Article.findByIdAndDelete(req.params.id, function (err, deletedArticle) {
     if (err) {

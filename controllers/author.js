@@ -89,14 +89,23 @@ router.put("/:id", function (req, res) {
 });
 
 // delete
-// TODO refactor to mass delete all articles
 router.delete("/:id", function (req, res) {
   db.Author.findByIdAndDelete(req.params.id, function (err, deletedAuthor) {
     if (err) {
       console.log(err);
       return res.send(err);
     }
-    res.redirect("/authors");
+
+    db.Article.remove({ author: deletedAuthor._id }, function (
+      err,
+      removedArticles
+    ) {
+      if (err) {
+        console.log(err);
+        return res.send(err);
+      }
+      res.redirect("/authors");
+    });
   });
 });
 
