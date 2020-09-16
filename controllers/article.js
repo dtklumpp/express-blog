@@ -76,7 +76,13 @@ router.put("/:id", function (req, res) {
 
 // delete
 router.delete("/:id", function (req, res) {
-  return res.send("article delete");
+  db.Article.findByIdAndDelete(req.params.id, function (err, deletedArticle) {
+    if (err) {
+      console.log(err);
+      return res.send(err);
+    }
+    res.redirect("/articles");
+  });
 });
 
 module.exports = router;
