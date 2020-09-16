@@ -101,7 +101,18 @@ router.delete("/:id", function (req, res) {
       console.log(err);
       return res.send(err);
     }
-    res.redirect("/articles");
+
+    db.Author.findById(deletedArticle.author, function (err, foundAuthor) {
+      if (err) {
+        console.log(err);
+        return res.send(err);
+      }
+
+      foundAuthor.articles.remove(deletedArticle);
+      foundAuthor.save();
+
+      res.redirect("/articles");
+    });
   });
 });
 
