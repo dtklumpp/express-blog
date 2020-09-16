@@ -7,7 +7,15 @@ const db = require("../models");
 
 // index
 router.get("/", function (req, res) {
-  return res.send("article index");
+  db.Article.find({}, function (error, foundArticles) {
+    if (error) return res.send(error);
+
+    const context = {
+      articles: foundArticles,
+    };
+
+    res.render("article/index", context);
+  });
 });
 
 // new
@@ -17,7 +25,7 @@ router.get("/new", function (req, res) {
 
 // create
 router.post("/", function (req, res) {
-  return res.send("article create");
+  return res.send({ route: "Create", body: req.body });
 });
 
 // show
