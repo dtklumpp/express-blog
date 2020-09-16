@@ -22,4 +22,5 @@ mongoose.connection.on("disconnect", function (event) {
 
 module.exports = {
   Author: require("./Author"),
+  Article: require("./Article"),
 };
