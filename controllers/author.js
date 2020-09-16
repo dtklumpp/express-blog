@@ -39,16 +39,26 @@ router.post("/", function (req, res) {
 });
 
 // show
-// TODO refactor to show articles on show page of author
 router.get("/:id", function (req, res) {
-  db.Author.findById(req.params.id, function (err, foundAuthor) {
+  /* db.Author.findById(req.params.id, function (err, foundAuthor) {
     if (err) {
       console.log(err);
       return res.send(err);
     }
     const context = { author: foundAuthor };
     res.render("author/show", context);
-  });
+  }); */
+
+  db.Author.findById(req.params.id)
+    .populate("articles")
+    .exec(function (err, foundAuthor) {
+      if (err) {
+        console.log(err);
+        return res.send(err);
+      }
+      const context = { author: foundAuthor };
+      res.render("author/show", context);
+    });
 });
 
 // edit <- view
