@@ -20,12 +20,18 @@ router.get("/", function (req, res) {
 
 // new
 router.get("/new", function (req, res) {
-  return res.send("article new");
+  res.render("article/new");
 });
 
 // create
 router.post("/", function (req, res) {
-  return res.send({ route: "Create", body: req.body });
+  db.Article.create(req.body, function (err, createdArticle) {
+    if (err) {
+      console.log(err);
+      return res.send(err);
+    }
+    res.redirect("/articles");
+  });
 });
 
 // show
