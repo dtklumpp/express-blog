@@ -36,7 +36,14 @@ router.post("/", function (req, res) {
 
 // show
 router.get("/:id", function (req, res) {
-  return res.send("article show");
+  db.Article.findById(req.params.id, function (err, foundArticle) {
+    if (err) {
+      console.log(err);
+      return res.send(err);
+    }
+    const context = { article: foundArticle };
+    res.render("article/show", context);
+  });
 });
 
 // edit
