@@ -33,12 +33,23 @@ router.get("/new", function (req, res) {
 
 // create
 router.post("/", function (req, res) {
+  console.log(req.body);
   db.Article.create(req.body, function (err, createdArticle) {
     if (err) {
       console.log(err);
       return res.send(err);
     }
-    res.redirect("/articles");
+    db.Author.findById(req.body.author, function (err, foundAuthor) {
+      if (err) {
+        console.log(err);
+        return res.send(err);
+      }
+
+      foundAuthor.articles.push(createdArticle);
+      foundAuthor.save(); // important because this commits the author back to the db
+
+      res.redirect("/articles");
+    });
   });
 });
 
@@ -83,6 +94,7 @@ router.put("/:id", function (req, res) {
 });
 
 // delete
+// TODO refactor to delete article and remove article from author
 router.delete("/:id", function (req, res) {
   db.Article.findByIdAndDelete(req.params.id, function (err, deletedArticle) {
     if (err) {

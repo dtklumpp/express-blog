@@ -39,6 +39,7 @@ router.post("/", function (req, res) {
 });
 
 // show
+// TODO refactor to show articles on show page of author
 router.get("/:id", function (req, res) {
   db.Author.findById(req.params.id, function (err, foundAuthor) {
     if (err) {
@@ -78,6 +79,7 @@ router.put("/:id", function (req, res) {
 });
 
 // delete
+// TODO refactor to mass delete all articles
 router.delete("/:id", function (req, res) {
   db.Author.findByIdAndDelete(req.params.id, function (err, deletedAuthor) {
     if (err) {
