@@ -20,7 +20,15 @@ router.get("/", function (req, res) {
 
 // new
 router.get("/new", function (req, res) {
-  res.render("article/new");
+  db.Author.find({}, function (err, foundAuthors) {
+    if (err) return res.send(err);
+
+    const context = {
+      authors: foundAuthors,
+    };
+
+    res.render("article/new", context);
+  });
 });
 
 // create
