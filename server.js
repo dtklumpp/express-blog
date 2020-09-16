@@ -32,6 +32,8 @@ app.use("/authors", controllers.author);
 
 // Article Routes
 
+app.use("/articles", controllers.article);
+
 /* Server Listener */
 app.listen(PORT, function () {
   console.log(`Server is live and listening at http://localhost:${PORT}`);
